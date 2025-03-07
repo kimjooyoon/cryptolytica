@@ -1,0 +1,53 @@
+[package]
+name = "cryptolytica-core"
+version = "0.1.0"
+edition = "2021"
+authors = ["CryptoLytica Team <your.email@example.com>"]
+description = "암호화폐 데이터 수집 및 처리를 위한 고성능 코어 라이브러리"
+license = "Apache-2.0"
+repository = "https://github.com/kimjooyoon/cryptolytica"
+readme = "../README.md"
+keywords = ["cryptocurrency", "data", "analytics", "finance", "trading"]
+categories = ["finance", "data-structures"]
+
+[lib]
+name = "cryptolytica_core"
+path = "src/lib.rs"
+
+[dependencies]
+# 비동기 런타임
+tokio = { version = "1.36.0", features = ["full"] }
+async-trait = "0.1.77"
+
+# 직렬화/역직렬화
+serde = { version = "1.0.197", features = ["derive"] }
+serde_json = "1.0.114"
+
+# 오류 처리
+anyhow = "1.0.80"
+thiserror = "1.0.56"
+
+# 로깅
+tracing = "0.1.40"
+tracing-subscriber = "0.3.18"
+
+# HTTP 클라이언트
+reqwest = { version = "0.11.24", features = ["json"] }
+
+# 유틸리티
+chrono = { version = "0.4.34", features = ["serde"] }
+futures = "0.3.30"
+async-stream = "0.3.5"
+url = "2.5.0"
+
+[dev-dependencies]
+tokio-test = "0.4.3"
+mockito = "1.2.0"
+rstest = "0.18.2"
+
+[features]
+default = []
+binance = []
+coinbase = []
+upbit = []
+all-exchanges = ["binance", "coinbase", "upbit"]
