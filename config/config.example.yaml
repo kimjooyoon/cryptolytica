@@ -1,0 +1,78 @@
+# CryptoLytica 설정 예시 파일
+# 실제 사용 시에는 이 파일을 config.yaml로 복사하고 필요에 맞게 수정하세요.
+
+# 서버 설정
+server:
+  port: 8080
+  mode: debug  # debug 또는 release
+  read_timeout_seconds: 30
+  write_timeout_seconds: 30
+  idle_timeout_seconds: 60
+  trusted_proxies:
+    - 127.0.0.1
+    - ::1
+
+# 데이터베이스 설정
+database:
+  type: postgres  # memory, postgres, timescaledb, clickhouse
+  host: localhost
+  port: 5432
+  username: cryptolytica
+  password: your_secure_password
+  database: cryptolytica
+  max_connections: 50
+  ssl_mode: disable
+
+# 속도 제한 설정
+rate_limit:
+  enabled: true
+  requests_per_second: 100
+  burst_size: 200
+  expiry_seconds: 60
+
+# 로깅 설정
+logging:
+  level: info  # debug, info, warn, error
+  format: json  # json 또는 console
+  output_path: stdout  # stdout 또는 파일 경로
+
+# 코어 라이브러리 설정
+core:
+  data_dir: ./data
+  cache_size: 1000
+  max_concurrency: 10
+  default_timeout_ms: 30000
+
+# 거래소 설정
+exchanges:
+  enabled:
+    - binance
+    - coinbase
+    - upbit
+  settings:
+    binance:
+      api_key: ""
+      api_secret: ""
+      base_url: "https://api.binance.com"
+      use_testnet: false
+    coinbase:
+      api_key: ""
+      api_secret: ""
+      base_url: "https://api.exchange.coinbase.com"
+      use_sandbox: false
+    upbit:
+      api_key: ""
+      api_secret: ""
+      base_url: "https://api.upbit.com"
+
+# 인증 설정
+auth:
+  jwt_secret: "change-me-in-production"
+  jwt_expiry_minutes: 60
+  api_key_enabled: true
+
+# 모니터링 설정
+monitoring:
+  prometheus_enabled: true
+  metrics_path: /metrics
+  tracing_enabled: false
