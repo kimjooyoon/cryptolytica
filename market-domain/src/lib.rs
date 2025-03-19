@@ -4,10 +4,11 @@
 //! 시장 데이터의 표현, 저장, 조회에 관한 핵심 비즈니스 규칙을 담고 있습니다.
 
 pub mod model;
-pub mod repository;
-pub mod service;
-pub mod event;
-pub mod error;
+// 아직 구현되지 않은 모듈은 주석 처리
+// pub mod repository;
+// pub mod service;
+// pub mod event;
+// pub mod error;
 
 pub use cryptolytica_shared_kernel as shared;
 

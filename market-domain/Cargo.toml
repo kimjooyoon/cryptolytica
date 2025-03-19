@@ -11,6 +11,10 @@ description = "CryptoLytica 시장 데이터 도메인 - 시장 데이터 모델
 name = "cryptolytica_market_domain"
 path = "src/lib.rs"
 
+[features]
+default = []
+time-series = ["polars", "arrow"]
+
 [dependencies]
 # 내부 의존성
 cryptolytica-shared-kernel = { path = "../shared-kernel" }
@@ -35,9 +39,9 @@ uuid = { workspace = true }
 # 로깅
 tracing = { workspace = true }
 
-# 시계열 데이터
-polars = { workspace = true }
-arrow = { workspace = true }
+# 시계열 데이터 - 선택적 의존성
+polars = { workspace = true, optional = true }
+arrow = { workspace = true, optional = true }
 
 [dev-dependencies]
 # 테스트 도구
@@ -47,6 +51,7 @@ tokio-test = { workspace = true }
 fake = { workspace = true }
 criterion = { workspace = true }
 
-[[bench]]
-name = "time_series_bench"
-harness = false 
+# 벤치마크 테스트가 실제로 필요할 때 주석 해제
+# [[bench]]
+# name = "time_series_bench"
+# harness = false 

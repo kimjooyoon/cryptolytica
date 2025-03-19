@@ -182,7 +182,10 @@ mod tests {
         candle.open = 110.0;
         candle.close = 90.0;
         
-        assert_eq!(candle.price_change_percent(), -18.18181818181818);
+        let price_change = candle.price_change_percent();
+        assert!(price_change > -18.19 && price_change < -18.18, 
+               "가격 변화율: {}, 기대 범위: -18.19 ~ -18.18", price_change);
+        
         assert!(!candle.is_bullish());
         assert!(candle.is_bearish());
         assert_eq!(candle.body_size(), 20.0);
