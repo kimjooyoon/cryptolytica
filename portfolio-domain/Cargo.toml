@@ -1,0 +1,58 @@
+[package]
+name = "cryptolytica-portfolio-domain"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CryptoLytica 포트폴리오 도메인 - 자산 및 리스크 관리 모델"
+
+[lib]
+name = "cryptolytica_portfolio_domain"
+path = "src/lib.rs"
+
+[dependencies]
+# 내부 의존성
+cryptolytica-shared-kernel = { path = "../shared-kernel" }
+# 직접 의존성 제거
+# cryptolytica-market-domain = { path = "../market-domain" }
+# cryptolytica-exchange-domain = { path = "../exchange-domain" }
+
+# 직렬화/역직렬화
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# 오류 처리
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+
+# 비동기 런타임
+async-trait = { workspace = true }
+tokio = { workspace = true }
+futures = { workspace = true }
+
+# 유틸리티
+chrono = { workspace = true }
+uuid = { workspace = true }
+
+# 로깅
+tracing = { workspace = true }
+
+# 수학 라이브러리
+statrs = { workspace = true }
+ndarray = { workspace = true }
+
+# 병렬 처리
+rayon = { workspace = true }
+
+[dev-dependencies]
+# 테스트 도구
+rstest = { workspace = true }
+proptest = { workspace = true }
+tokio-test = { workspace = true }
+criterion = { workspace = true }
+fake = { workspace = true }
+
+[[bench]]
+name = "portfolio_benchmark"
+harness = false 

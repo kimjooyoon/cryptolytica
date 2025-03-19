@@ -1,0 +1,46 @@
+[package]
+name = "cryptolytica-infrastructure-core"
+version = "0.1.0"
+edition = "2021"
+authors = ["CryptoLytica Team <your.email@example.com>"]
+description = "기술 인프라 통합을 위한 코어 라이브러리 (WASM, HTTP/3)"
+license = "Apache-2.0"
+repository = "https://github.com/kimjooyoon/cryptolytica"
+readme = "README.md"
+
+[lib]
+name = "cryptolytica_infrastructure_core"
+path = "src/lib.rs"
+
+[dependencies]
+# 내부 모듈 의존성
+cryptolytica-common-core = { path = "../common_core" }
+
+# WASM 지원
+wasm-bindgen = "0.2.89"
+js-sys = "0.3.66"
+wasm-bindgen-futures = "0.4.39"
+anyhow = "1.0.80"
+
+# HTTP/3 지원
+quinn = "0.10.2"
+rustls = { version = "0.21.10", features = ["dangerous_configuration"] }
+rcgen = "0.12.1"
+webpki = "0.22.2"
+
+# 유틸리티
+bytes = "1.5.0"
+futures = "0.3.30"
+serde = { version = "1.0.197", features = ["derive"] }
+serde_json = "1.0.114"
+tracing = "0.1.40"
+
+[dev-dependencies]
+rstest = "0.18.2"
+tokio-test = "0.4.3"
+wasm-bindgen-test = "0.3.39"
+
+[features]
+default = ["wasm", "http3"]
+wasm = ["wasm-bindgen", "js-sys", "wasm-bindgen-futures"]
+http3 = ["quinn", "rustls", "rcgen", "webpki"] 

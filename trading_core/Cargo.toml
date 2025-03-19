@@ -1,0 +1,71 @@
+[package]
+name = "cryptolytica-trading-core"
+version = "0.1.0"
+edition = "2021"
+description = "CryptoLytica 트레이딩 전략 및 실행 라이브러리"
+authors = ["CryptoLytica Team <your.email@example.com>"]
+license = "Apache-2.0"
+repository = "https://github.com/kimjooyoon/cryptolytica"
+
+[lib]
+name = "cryptolytica_trading_core"
+path = "src/lib.rs"
+
+[dependencies]
+# 내부 의존성
+cryptolytica-common-core = { path = "../common_core" }
+cryptolytica-exchange-core = { path = "../exchange_core" }
+cryptolytica-market-data-core = { path = "../market_data_core" }
+
+# 직렬화/역직렬화
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# 오류 처리
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+
+# 비동기 런타임
+tokio = { workspace = true }
+async-trait = { workspace = true }
+futures = { workspace = true }
+futures-util = { workspace = true }
+
+# 유틸리티
+chrono = { workspace = true }
+uuid = { workspace = true }
+
+# 로깅
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+# 시계열 데이터
+polars = { workspace = true }
+arrow = { workspace = true }
+
+# 수학 라이브러리
+statrs = "0.16.0"
+ndarray = "0.15.6"
+ndarray-stats = "0.5.1"
+nalgebra = "0.32.4"
+
+# 랜덤
+rand = "0.8.5"
+rand_distr = "0.4.3"
+
+# 백테스팅 시뮬레이션
+dashmap = "5.5.3"
+rayon = "1.8.1"
+
+[dev-dependencies]
+# 테스트 도구
+rstest = { workspace = true }
+mockito = { workspace = true }
+tokio-test = { workspace = true }
+criterion = { workspace = true }
+proptest = { workspace = true }
+fake = { version = "2.9.2", features = ["derive", "chrono"] }
+
+[[bench]]
+name = "strategy_benchmark"
+harness = false 

@@ -1,0 +1,82 @@
+[package]
+name = "cryptolytica-infrastructure"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CryptoLytica 인프라스트럭처 - 도메인 인터페이스 구현체"
+
+[lib]
+name = "cryptolytica_infrastructure"
+path = "src/lib.rs"
+
+[dependencies]
+# 내부 의존성
+cryptolytica-shared-kernel = { path = "../shared-kernel" }
+cryptolytica-market-domain = { path = "../market-domain" }
+cryptolytica-exchange-domain = { path = "../exchange-domain" }
+cryptolytica-trading-domain = { path = "../trading-domain" }
+cryptolytica-portfolio-domain = { path = "../portfolio-domain" }
+cryptolytica-notification-domain = { path = "../notification-domain" }
+cryptolytica-analytics-domain = { path = "../analytics-domain" }
+
+# 직렬화/역직렬화
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# 오류 처리
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+
+# 비동기 런타임
+async-trait = { workspace = true }
+tokio = { workspace = true }
+futures = { workspace = true }
+futures-util = { workspace = true }
+
+# 유틸리티
+chrono = { workspace = true }
+uuid = { workspace = true }
+
+# 로깅
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+# HTTP 클라이언트
+reqwest = { workspace = true }
+
+# 데이터베이스
+sqlx = { workspace = true }
+clickhouse = { workspace = true }
+
+# WebSocket
+tokio-tungstenite = { workspace = true }
+tungstenite = { workspace = true }
+
+# 메시징
+lapin = { workspace = true }
+rdkafka = { workspace = true }
+
+# HTTP/3
+quinn = { workspace = true }
+rustls = { workspace = true }
+
+# 캐싱
+moka = { workspace = true }
+
+# 설정
+config = { workspace = true }
+dotenv = { workspace = true }
+
+# WASM 지원
+wasm-bindgen = { workspace = true }
+js-sys = { workspace = true }
+wasm-bindgen-futures = { workspace = true }
+
+[dev-dependencies]
+# 테스트 도구
+rstest = { workspace = true }
+mockito = { workspace = true }
+tokio-test = { workspace = true }
+wiremock = "0.5.22" 

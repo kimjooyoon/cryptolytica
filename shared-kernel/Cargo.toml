@@ -1,0 +1,44 @@
+[package]
+name = "cryptolytica-shared-kernel"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CryptoLytica 공유 커널 - 모든 도메인에서 공통으로 사용되는 코드"
+
+[lib]
+name = "cryptolytica_shared_kernel"
+path = "src/lib.rs"
+
+[dependencies]
+# 직렬화/역직렬화
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# 오류 처리
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+
+# 비동기 런타임
+async-trait = { workspace = true }
+tokio = { workspace = true }
+futures = { workspace = true }
+
+# 유틸리티
+chrono = { workspace = true }
+uuid = { workspace = true }
+
+# 로깅
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+# 컬렉션 유틸리티
+ahash = { workspace = true }
+hashbrown = { workspace = true }
+
+[dev-dependencies]
+# 테스트 도구
+rstest = { workspace = true }
+proptest = { workspace = true }
+tokio-test = { workspace = true } 
