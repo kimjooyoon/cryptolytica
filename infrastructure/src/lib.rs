@@ -29,6 +29,13 @@ mod tests {
     }
 }
 
+// 이벤트 버스 테스트 모듈
+#[cfg(test)]
+pub mod tests {
+    // 이벤트 버스 테스트
+    pub mod memory_event_bus_test;
+}
+
 // 아직 구현되지 않은 모듈 스텁
 pub mod repositories {
     //! 저장소 구현체 모듈

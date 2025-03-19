@@ -86,6 +86,14 @@ mod tests {
     }
 }
 
+// 이벤트 핸들러 테스트 모듈
+#[cfg(test)]
+pub mod tests {
+    // 이벤트 핸들러 테스트
+    pub mod market_events_test;
+    pub mod order_events_test;
+}
+
 // 아직 구현되지 않은 모듈 스텁
 pub mod strategy {
     //! 트레이딩 전략 관련 기능
