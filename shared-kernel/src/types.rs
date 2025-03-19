@@ -4,8 +4,6 @@
 
 use serde::{Deserialize, Serialize};
 use std::fmt;
-use chrono::{DateTime, Utc};
-use uuid::Uuid;
 
 /// 암호화폐 거래 쌍(Symbol Pair)
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize)]

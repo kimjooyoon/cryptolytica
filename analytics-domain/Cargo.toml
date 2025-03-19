@@ -55,7 +55,8 @@ plotters = "0.3.5"
 rayon = { workspace = true }
 
 # 리포트 생성
-markdown = "1.1.0"
+# markdown = "1.1.0" # 버전 문제로 주석 처리
+pulldown-cmark = "0.9.3" # markdown 대체
 
 [dev-dependencies]
 # 테스트 도구

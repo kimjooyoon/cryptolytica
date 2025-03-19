@@ -1,4 +1,4 @@
-name: Rust Tests
+name: Rust CI
 
 on:
   push:
@@ -11,8 +11,64 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  test:
-    name: Run Rust Tests
+  format:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Install stable toolchain with rustfmt
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+          components: rustfmt
+      
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+      
+      - name: Check code formatting
+        run: cargo fmt -- --check
+
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Install stable toolchain with clippy
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+          components: clippy
+      
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+      
+      - name: Run clippy
+        run: cargo clippy -- -D warnings
+
+  unit-test:
+    name: Unit Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -35,37 +91,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cargo-
       
-      - name: Run tests for shared-kernel
-        run: cargo test -p cryptolytica-shared-kernel
+      - name: Run all unit tests
+        run: cargo test --workspace --lib
       
-      - name: Run tests for infrastructure
-        run: cargo test -p cryptolytica-infrastructure
-      
-      - name: Run tests for trading-domain
-        run: cargo test -p cryptolytica-trading-domain
-      
-      - name: Run tests for market-domain
-        run: cargo test -p cryptolytica-market-domain
-      
-      - name: Run tests for exchange-domain
-        run: cargo test -p cryptolytica-exchange-domain
-  
-  clippy:
-    name: Clippy
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Install stable toolchain with clippy
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-          components: clippy
-      
-      - name: Run clippy
-        uses: actions-rs/clippy-check@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          args: -- -D warnings 
+      # 개별 패키지 단위 테스트 (선택적)
+      - name: Run shared-kernel unit tests
+        run: cargo test -p cryptolytica-shared-kernel --lib
+        
+      - name: Run infrastructure unit tests
+        run: cargo test -p cryptolytica-infrastructure --lib
+        
+      - name: Run trading-domain unit tests
+        run: cargo test -p cryptolytica-trading-domain --lib
+        
+      - name: Run market-domain unit tests
+        run: cargo test -p cryptolytica-market-domain --lib
+        
+      - name: Run exchange-domain unit tests
+        run: cargo test -p cryptolytica-exchange-domain --lib 

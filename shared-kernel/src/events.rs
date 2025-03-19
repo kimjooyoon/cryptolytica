@@ -7,7 +7,6 @@ use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
 use uuid::Uuid;
 use std::any::TypeId;
-use std::sync::Arc;
 use crate::error::CoreError;
 use crate::types::Result;
 
@@ -63,9 +62,10 @@ pub struct EventHeader {
 
 /// 이벤트 포장 구조체
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(bound(serialize = "T: Serialize", deserialize = "T: for<'d> Deserialize<'d>"))]
 pub struct EventEnvelope<T>
 where
-    T: Serialize + for<'de> Deserialize<'de>,
+    T: Serialize + for<'a> Deserialize<'a>,
 {
     /// 이벤트 헤더
     pub header: EventHeader,

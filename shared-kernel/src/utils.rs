@@ -2,7 +2,7 @@
 //!
 //! 이 모듈은 전체 프로젝트에서 사용되는 유틸리티 함수들을 제공합니다.
 
-use chrono::{DateTime, NaiveDateTime, Utc, TimeZone};
+use chrono::{DateTime, Utc};
 use std::ops::Add;
 use crate::error::CoreError;
 use crate::types::Result;
@@ -12,10 +12,12 @@ pub fn ms_timestamp_to_datetime(ts: i64) -> DateTime<Utc> {
     let seconds = ts / 1000;
     let nanoseconds = (ts % 1000) * 1_000_000;
     
-    let naive = NaiveDateTime::from_timestamp_opt(seconds, nanoseconds as u32)
-        .unwrap_or_else(|| NaiveDateTime::from_timestamp_opt(0, 0).unwrap());
-        
-    Utc.from_utc_datetime(&naive)
+    let dt = match DateTime::from_timestamp(seconds, nanoseconds as u32) {
+        Some(dt) => dt,
+        None => DateTime::from_timestamp(0, 0).unwrap()
+    };
+    
+    dt
 }
 
 /// DateTime<Utc>를 타임스탬프(밀리초)로 변환
@@ -188,7 +190,7 @@ mod tests {
     
     #[test]
     fn test_mask_sensitive_data() {
-        assert_eq!(mask_sensitive_data("password123", 3), "pas*********");
+        assert_eq!(mask_sensitive_data("password123", 3), "pas********");
         assert_eq!(mask_sensitive_data("api_key", 2), "ap*****");
         assert_eq!(mask_sensitive_data("abc", 3), "abc");
         assert_eq!(mask_sensitive_data("ab", 3), "ab");
