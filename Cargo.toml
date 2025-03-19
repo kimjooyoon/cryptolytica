@@ -1,0 +1,144 @@
+[workspace]
+members = [
+    "shared-kernel",
+    "market-domain",
+    "exchange-domain",
+    "trading-domain",
+    "portfolio-domain",
+    "notification-domain",
+    "analytics-domain",
+    "infrastructure",
+    "api-gateway",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["CryptoLytica Team <your.email@example.com>"]
+license = "Apache-2.0"
+repository = "https://github.com/kimjooyoon/cryptolytica"
+readme = "README.md"
+
+# 공통 의존성
+[workspace.dependencies]
+# 직렬화/역직렬화
+serde = { version = "1.0.197", features = ["derive"] }
+serde_json = "1.0.114"
+
+# 오류 처리
+thiserror = "1.0.56"
+anyhow = "1.0.80"
+
+# 비동기 런타임
+tokio = { version = "1.36.0", features = ["full"] }
+async-trait = "0.1.77"
+futures = "0.3.30"
+futures-util = "0.3.30"
+
+# 로깅 및 측정
+tracing = "0.1.40"
+tracing-subscriber = "0.3.18"
+
+# 유틸리티
+chrono = { version = "0.4.34", features = ["serde"] }
+uuid = { version = "1.6.1", features = ["serde", "v4"] }
+
+# HTTP 클라이언트
+reqwest = { version = "0.11.24", features = ["json"] }
+
+# 데이터베이스
+sqlx = { version = "0.7.3", features = ["runtime-tokio", "postgres", "json", "chrono", "uuid"] }
+clickhouse = { version = "0.11.5", features = ["uuid", "time"] }
+
+# 시계열 데이터
+polars = { version = "0.38.1", features = ["lazy", "temporal", "dtype-datetime"] }
+arrow = "50.0.0"
+
+# 수학 라이브러리
+statrs = "0.16.0"
+ndarray = "0.15.6"
+nalgebra = "0.32.4"
+
+# 암호화
+hmac = "0.12.1"
+sha2 = "0.10.8"
+hex = "0.4.3"
+
+# WebSocket
+tokio-tungstenite = { version = "0.21.0", features = ["native-tls"] }
+tungstenite = "0.21.0"
+
+# WASM 지원
+wasm-bindgen = "0.2.89"
+js-sys = "0.3.66"
+wasm-bindgen-futures = "0.4.39"
+
+# HTTP/3 지원
+quinn = "0.10.2"
+rustls = { version = "0.21.10", features = ["dangerous_configuration"] }
+
+# 메시징
+lapin = "2.3.1"
+rdkafka = { version = "0.36.0", features = ["cmake-build"] }
+
+# 테스트
+rstest = "0.18.2"
+mockito = "1.2.0"
+tokio-test = "0.4.3"
+criterion = "0.5.1"
+proptest = "1.4.0"
+fake = { version = "2.9.2", features = ["derive", "chrono"] }
+
+# API
+axum = "0.7.4"
+tower = "0.4.13"
+tower-http = { version = "0.5.2", features = ["trace", "cors"] }
+
+# 보안
+jsonwebtoken = "9.2.0"
+argon2 = "0.5.3"
+
+# 설정
+config = "0.14.0"
+dotenv = "0.15.0"
+
+# 컬렉션 유틸리티
+ahash = "0.8.11"
+hashbrown = "0.14.3"
+dashmap = "5.5.3"
+
+# 병렬 처리
+rayon = "1.8.1"
+
+# 캐싱
+moka = { version = "0.12.5", features = ["future"] }
+
+[profile.dev]
+opt-level = 0
+debug = true
+debug-assertions = true
+overflow-checks = true
+lto = false
+panic = 'unwind'
+incremental = true
+codegen-units = 256
+rpath = false
+
+[profile.release]
+opt-level = 3
+debug = false
+debug-assertions = false
+overflow-checks = false
+lto = true
+panic = 'unwind'
+incremental = false
+codegen-units = 16
+rpath = false
+
+[profile.bench]
+opt-level = 3
+debug = false
+debug-assertions = false
+overflow-checks = false
+lto = true
+codegen-units = 1 

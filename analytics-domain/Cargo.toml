@@ -1,0 +1,70 @@
+[package]
+name = "cryptolytica-analytics-domain"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CryptoLytica 분석 도메인 - 백테스팅 및 데이터 분석 모델"
+
+[lib]
+name = "cryptolytica_analytics_domain"
+path = "src/lib.rs"
+
+[dependencies]
+# 내부 의존성
+cryptolytica-shared-kernel = { path = "../shared-kernel" }
+# 직접 의존성 제거
+# cryptolytica-market-domain = { path = "../market-domain" }
+# cryptolytica-trading-domain = { path = "../trading-domain" }
+# cryptolytica-portfolio-domain = { path = "../portfolio-domain" }
+
+# 직렬화/역직렬화
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# 오류 처리
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+
+# 비동기 런타임
+async-trait = { workspace = true }
+tokio = { workspace = true }
+futures = { workspace = true }
+
+# 유틸리티
+chrono = { workspace = true }
+uuid = { workspace = true }
+
+# 로깅
+tracing = { workspace = true }
+
+# 시계열 데이터
+polars = { workspace = true, features = ["lazy", "temporal", "dtype-datetime"] }
+arrow = { workspace = true }
+
+# 수학 라이브러리
+statrs = { workspace = true }
+ndarray = { workspace = true }
+ndarray-stats = "0.5.1"
+
+# 그래프/차트
+plotters = "0.3.5"
+
+# 병렬 처리
+rayon = { workspace = true }
+
+# 리포트 생성
+markdown = "1.1.0"
+
+[dev-dependencies]
+# 테스트 도구
+rstest = { workspace = true }
+proptest = { workspace = true }
+tokio-test = { workspace = true }
+criterion = { workspace = true }
+fake = { workspace = true }
+
+[[bench]]
+name = "analytics_benchmark"
+harness = false 

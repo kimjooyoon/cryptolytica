@@ -1,0 +1,47 @@
+[package]
+name = "cryptolytica-notification-domain"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CryptoLytica 알림 도메인 - 알림 및 이벤트 모델"
+
+[lib]
+name = "cryptolytica_notification_domain"
+path = "src/lib.rs"
+
+[dependencies]
+# 내부 의존성
+cryptolytica-shared-kernel = { path = "../shared-kernel" }
+
+# 직렬화/역직렬화
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# 오류 처리
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+
+# 비동기 런타임
+async-trait = { workspace = true }
+tokio = { workspace = true }
+futures = { workspace = true }
+
+# 유틸리티
+chrono = { workspace = true }
+uuid = { workspace = true }
+
+# 로깅
+tracing = { workspace = true }
+
+# 템플릿 렌더링
+handlebars = "4.5.0"
+tera = "1.19.1"
+
+[dev-dependencies]
+# 테스트 도구
+rstest = { workspace = true }
+proptest = { workspace = true }
+tokio-test = { workspace = true }
+fake = { workspace = true } 

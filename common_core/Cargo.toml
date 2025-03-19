@@ -1,0 +1,40 @@
+[package]
+name = "cryptolytica-common-core"
+version = "0.1.0"
+edition = "2021"
+description = "CryptoLytica 공통 타입 및 유틸리티 라이브러리"
+authors = ["CryptoLytica Team <your.email@example.com>"]
+license = "Apache-2.0"
+repository = "https://github.com/kimjooyoon/cryptolytica"
+
+[lib]
+name = "cryptolytica_common_core"
+path = "src/lib.rs"
+
+[dependencies]
+# 직렬화/역직렬화
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# 오류 처리
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+
+# 유틸리티
+chrono = { workspace = true }
+uuid = { workspace = true }
+
+# 로깅
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+# 컬렉션 유틸리티
+ahash = "0.8.11"
+hashbrown = "0.14.3"
+
+[dev-dependencies]
+# 테스트 도구
+rstest = { workspace = true }
+proptest = { workspace = true }
+tokio = { workspace = true }
+tokio-test = { workspace = true } 

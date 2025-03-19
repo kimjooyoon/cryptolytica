@@ -1,0 +1,61 @@
+[package]
+name = "cryptolytica-exchange-core"
+version = "0.1.0"
+edition = "2021"
+description = "CryptoLytica 암호화폐 거래소 API 연동 라이브러리"
+authors = ["CryptoLytica Team <your.email@example.com>"]
+license = "Apache-2.0"
+repository = "https://github.com/kimjooyoon/cryptolytica"
+
+[lib]
+name = "cryptolytica_exchange_core"
+path = "src/lib.rs"
+
+[dependencies]
+# 내부 의존성
+cryptolytica-common-core = { path = "../common_core" }
+
+# 직렬화/역직렬화
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# 오류 처리
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+
+# 비동기 런타임
+tokio = { workspace = true }
+async-trait = { workspace = true }
+futures = { workspace = true }
+futures-util = { workspace = true }
+
+# HTTP 클라이언트
+reqwest = { workspace = true }
+
+# 유틸리티
+chrono = { workspace = true }
+uuid = { workspace = true }
+
+# 로깅
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+# 암호화
+hmac = "0.12.1"
+sha2 = "0.10.8"
+hex = "0.4.3"
+
+# WebSocket
+tokio-tungstenite = { version = "0.21.0", features = ["native-tls"] }
+tungstenite = "0.21.0"
+
+# URL 처리
+url = "2.5.0"
+
+[dev-dependencies]
+# 테스트 도구
+rstest = { workspace = true }
+mockito = { workspace = true }
+tokio-test = { workspace = true }
+wiremock = "0.5.22"
+proptest = { workspace = true } 
